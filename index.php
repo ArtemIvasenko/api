@@ -1,17 +1,19 @@
 <?php
 require_once 'blockchain.php';
 $data = json_decode($res); // Актуальные курсы валют
-$route = $_GET['route'];
 $result = "";
-if ($_SERVER['REQUEST_METHOD'] == "GET")
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $method = $_GET['method'];
-elseif ($_SERVER['REQUEST_METHOD'] == "POST")
+    $token = $_GET['token'];
+}  elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
     $method = $_POST['method'];
+    $token = $_POST['token'];
+}
 
 $commission = 0.02; // Указываем комиссию сервиса
 
-
-if ($_POST['token'] == 'eyJhbGciOiJIUzI1NiJ9eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIi'){
+session_start();
+if ($token == 'eyJhbGciOiJIUzI1NiJ9eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIi'){
 
     switch ($method) {
         case 'rates': // Вывод продажи и покупки
